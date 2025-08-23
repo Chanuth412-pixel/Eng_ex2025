@@ -3,9 +3,9 @@ import { Download, FileText, Image, FileSpreadsheet, Calendar, CheckCircle } fro
 
 export const ExportWidget: React.FC = () => {
   const [exportHistory, setExportHistory] = useState([
-    { name: 'Attendance Report.pdf', type: 'PDF', date: '2025-01-15', status: 'completed' },
-    { name: 'Feedback Analysis.xlsx', type: 'Excel', date: '2025-01-14', status: 'completed' },
-    { name: 'Heatmap Data.csv', type: 'CSV', date: '2025-01-14', status: 'processing' },
+    { name: 'Attendance Report.pdf', type: 'PDF', date: '2025-09-23', status: 'completed' },
+    { name: 'Feedback Analysis.xlsx', type: 'Excel', date: '2025-09-23', status: 'completed' },
+    { name: 'Heatmap Data.csv', type: 'CSV', date: '2025-09-23', status: 'processing' },
   ]);
 
   const exportOptions = [

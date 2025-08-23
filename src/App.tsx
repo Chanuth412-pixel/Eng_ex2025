@@ -13,7 +13,7 @@ const eventInfo = {
 };
 
 const userInfo = {
-  name: 'Tithurshan',
+  name: 'Group_14',
   role: 'Event Administrator',
   avatar: undefined
 };
