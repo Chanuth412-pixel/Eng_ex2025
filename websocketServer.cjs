@@ -2,44 +2,44 @@ import { WebSocketServer, WebSocket } from 'ws';
 
 const wss = new WebSocketServer({ port: 3001 });
 
-const MAX_HISTORY = 4;  // Store only the last 1 message in history
-const chatHistory = []; // Chat history array
-let clientCounter = 0;  // To give each client a unique identifier
-const clientNames = new Map(); // Store client names
+const MAX_HISTORY = 4;  
+const chatHistory = []; 
+let clientCounter = 0;  
+const clientNames = new Map(); 
 
 console.log('WebSocket server started on ws://localhost:3001');
 
-// Handling new WebSocket connections
+//  new WebSocket connections
 wss.on('connection', function connection(ws) {
-  clientCounter += .5;
+  clientCounter += 1;
   const clientName = `Client ${clientCounter}`;
-  clientNames.set(ws, clientName);  // Associate client with name
+  clientNames.set(ws, clientName);  //  client name
   
   console.log(`${clientName} connected`);
 
-  // Send the current chat history to the new client
+  // send chat history to new client
   ws.send(JSON.stringify({ type: 'history', messages: chatHistory }));
 
-  // Listen for incoming messages from the client
+  // listen
   ws.on('message', function incoming(data) {
     console.log(`${clientName} sent:`, data.toString());
 
-    // Try to parse the received message
+    // parse the received message
     try {
       const parsed = JSON.parse(data);
       if (parsed.message) {
         chatHistory.push(parsed.message);
 
-        // Limit the history size to MAX_HISTORY
+        // limit the history 
         if (chatHistory.length > MAX_HISTORY) {
-          chatHistory.splice(0, chatHistory.length - MAX_HISTORY); // Keep the last `MAX_HISTORY` messages
+          chatHistory.splice(0, chatHistory.length - MAX_HISTORY); 
         }
       }
     } catch (e) {
       console.error('Error parsing message:', e);
     }
 
-    // Broadcast the current chat history to all clients
+    // broadcast
     const historyPayload = JSON.stringify({ type: 'history', messages: chatHistory });
     wss.clients.forEach(function each(client) {
       if (client.readyState === WebSocket.OPEN) {
@@ -48,13 +48,13 @@ wss.on('connection', function connection(ws) {
     });
   });
 
-  // Handle when a client disconnects
+  // Handling disconnections
   ws.on('close', () => {
     console.log(`${clientName} disconnected`);
-    clientNames.delete(ws);  // Clean up the map when client disconnects
+    clientNames.delete(ws);  
   });
 
-  // Handle any WebSocket errors
+  // Handling errors
   ws.on('error', (error) => {
     console.error('WebSocket error:', error);
   });
