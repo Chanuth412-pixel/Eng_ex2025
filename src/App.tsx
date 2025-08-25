@@ -24,12 +24,12 @@ function App() {
   const [activeSection, setActiveSection] = useState<Section>('overview');
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // WebSocket client setup
+  // WS client setup
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const [messages, setMessages] = useState<{ name: string; message: string }[]>([]);
   const [message, setMessage] = useState('');
 
-  // Initialize WebSocket connection
+  //WS connection
   useEffect(() => {
     const socket = new WebSocket('ws://localhost:3001'); // Connect to WebSocket server
 
@@ -37,7 +37,7 @@ function App() {
       console.log('Connected to WebSocket server');
     };
 
-    // Listen for incoming messages from WebSocket server
+    //Listen for msgs
     socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
       if (data.type === 'history') {
@@ -60,7 +60,6 @@ function App() {
     };
   }, []);
 
-  // Function to render content based on active section
   const renderContent = () => {
     switch (activeSection) {
       case 'overview':
