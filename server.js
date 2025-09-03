@@ -1,5 +1,5 @@
-import { WebSocketServer, WebSocket } from 'ws';
-const wss = new WebSocketServer({ port: 3001 });
+const { WebSocketServer, WebSocket } = require('ws');
+const wss = new WebSocketServer({ host: '0.0.0.0', port: 3001 });
 
 const MAX_HISTORY = 4;
 const chatHistory = [];

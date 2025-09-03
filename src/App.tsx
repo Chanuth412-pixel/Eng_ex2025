@@ -31,7 +31,7 @@ function App() {
 
   //WS connection
   useEffect(() => {
-    const socket = new WebSocket('ws://localhost:3001'); // Connect to WebSocket server
+    const socket = new WebSocket('ws://192.248.41.83:3001'); // Connect to WebSocket server
 
     socket.onopen = () => {
       console.log('Connected to WebSocket server');
